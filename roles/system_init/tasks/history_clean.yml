@@ -1,0 +1,12 @@
+---
+- name: Clear history cmd
+  shell: echo "" > /root/.bash_history
+  tags: history_clean
+
+- name: Clear user login info
+  shell: echo > /var/log/wtmp ; echo > /var/log/btmp
+  tags: history_clean
+
+- name: Clear messages and secure
+  shell: echo > /var/log/messages ; echo > /var/log/secure
+  tags: history_clean

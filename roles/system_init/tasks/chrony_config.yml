@@ -1,0 +1,30 @@
+---
+- name: Install chrony
+  yum: name={{ item }} state=present
+  with_items:
+    - chrony
+    - ntpdate
+    - ntp
+  tags: chrony_config
+
+- name: Be sure ntpd or chronyd is stop
+  service: name={{ item }} state=stopped enabled=no
+  with_items:
+    - ntpd
+    - chronyd
+  ignore_errors: True
+  tags: chrony_config
+
+- name: Init sync time
+  shell: hwclock -w ; ntpdate {{ ntp_server_host }} ; hwclock -w
+  ignore_errors: True
+  tags: chrony_config
+
+- name: Set timezone to Asia/Shanghai
+  timezone: name='Asia/Shanghai'
+  tags: chrony_config
+
+- name: Copy the chrony configuration file
+  template: src=chrony.conf.j2 dest=/etc/chrony.conf
+  notify: Restart chronyd
+  tags: chrony_config

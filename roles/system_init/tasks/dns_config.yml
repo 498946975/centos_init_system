@@ -1,0 +1,8 @@
+---
+- name: Clear dns config
+  shell: echo "" >/etc/resolv.conf
+  tags: dns_config
+
+- name: Dns config
+  lineinfile: dest=/etc/resolv.conf regexp='^nameserver' line='nameserver {{ dns_server_host }}'
+  tags: dns_config

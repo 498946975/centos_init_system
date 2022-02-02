@@ -1,0 +1,16 @@
+---
+- name: Create .ssh dir
+  file: path=/root/.ssh/ state=directory mode=0700 owner=root group=root
+  tags: send_ssh_authkey
+
+- name: Touch authorized_keys file
+  file: path={{ item }} state=touch mode=644
+  with_items:
+    - /root/.ssh/authorized_keys
+  tags: send_ssh_authkey
+
+- name: Send public key
+  lineinfile: dest={{ item }} line={{ root_public_key }}
+  with_items:
+    - /root/.ssh/authorized_keys
+  tags: send_ssh_authkey

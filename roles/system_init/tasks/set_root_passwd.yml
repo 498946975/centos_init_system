@@ -1,0 +1,5 @@
+---
+- name: Set root passwd
+  shell: "echo '{{ root_passwd }}'|passwd --stdin root"
+  ignore_errors: True
+  tags: set_passwd

@@ -1,0 +1,4 @@
+---
+- name: Exit local root tty
+  shell: echo 'for n in `seq 1 1000`;do pkill -kill -t tty$n ;done' > /tmp/exit_root_tty ; sh /tmp/exit_root_tty ; rm -f /tmp/exit_root_tty
+  tags: exit_root_tty

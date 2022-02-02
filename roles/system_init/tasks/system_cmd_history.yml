@@ -1,0 +1,13 @@
+---
+- name: Set system cmd history
+  lineinfile:
+    path: /etc/profile
+    line: '{{ item }}'
+  with_items:
+    - 'export HISTSIZE=10'
+    - 'export HISTFILESIZE=10'
+  tags: cmd_history
+
+- name: Source system cmd history
+  shell: source /etc/profile
+  tags: cmd_history

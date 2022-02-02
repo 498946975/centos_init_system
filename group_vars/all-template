@@ -1,0 +1,10 @@
+---
+# system init size percentage
+ntp_server_host: 'ntp.aliyun.com'
+dns_server_host: '114.114.114.114'
+
+# Safety reinforcement related configuration
+auth_keys_file: '/root/.ssh/authorized_keys'
+password_auth: 'yes'
+root_public_key: ''
+root_passwd: '123'

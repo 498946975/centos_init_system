@@ -1,0 +1,14 @@
+---
+- include: disable_system_service.yml
+- include: set_timezone.yml
+- include: add_ssh_authkey.yml
+- include: dns_config.yml
+- include: copy_base_repo.yml
+- include: chrony_config.yml
+- include: selinux_disable.yml
+- include: set_root_passwd.yml
+- include: exit_root_tty.yml
+- include: system_cmd_timeout.yml
+- include: system_cmd_history.yml
+- include: history_clean.yml
+- include: sshd_config_init.yml

@@ -1,0 +1,8 @@
+---
+- name: Disable and stop system service
+  service: name={{ item }} state=stopped enabled=no
+  with_items:
+    - 'NetworkManager'
+    - 'firewalld'
+    - 'postfix'
+  ignore_errors: True

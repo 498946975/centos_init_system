@@ -1,0 +1,15 @@
+---
+- name: Source profile
+  shell: source /etc/profile
+
+- name: Setenforce
+  shell: setenforce 0 || true
+
+- name: Restart sshd
+  service: name=sshd state=restarted
+
+- name: Restart rsyslog service
+  service: name=rsyslog state=restarted enabled=yes
+
+- name: Restart chronyd
+  service: name=chronyd state=restarted

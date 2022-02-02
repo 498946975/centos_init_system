@@ -1,0 +1,25 @@
+---
+- name: Clean all repo
+  shell: rm -rf /etc/yum.repos.d/* ; pkill -KILL yum ; rm -fr /var/run/yum.pid
+  tags: yum_repo_config
+
+- name: Cover the base repo
+  template: src=CentOS-Base.repo dest=/etc/yum.repos.d/CentOS-Base.repo
+  tags: yum_repo_config
+
+- name: Cover the epel repo
+  template: src=epel.repo dest=/etc/yum.repos.d/epel.repo
+  tags: yum_repo_config
+
+- name: Cover the docker repo
+  template: src=docker-ce.repo dest=/etc/yum.repos.d/docker-ce.repo
+  tags: yum_repo_config
+
+- name: Cover the kubernetes repo
+  template: src=kubernetes.repo dest=/etc/yum.repos.d/kubernetes.repo
+  tags: yum_repo_config
+
+- name: Update yum cache
+  shell: timeout 120 yum repolist
+  tags: yum_repo_config
+  ignore_errors: True

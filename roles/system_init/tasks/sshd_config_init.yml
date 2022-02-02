@@ -1,0 +1,27 @@
+---
+- name: Install iptables
+  yum: name={{ item }} state=present
+  with_items:
+    - iptables-services
+  tags: sshd_config
+
+- name: Config yum server iptables rule
+  iptables: action=insert chain=INPUT protocol=tcp destination_port=10000 jump=ACCEPT
+  tags: sshd_config
+  ignore_errors: True
+
+- name: Insert tcp rule to /etc/sysconfig/iptables
+  lineinfile:
+    path: /etc/sysconfig/iptables
+    insertafter: '^:OUTPUT ACCEPT '
+    line: '-A INPUT -p tcp -m tcp --dport 22 -j ACCEPT'
+  tags: sshd_config
+  ignore_errors: True
+
+- name: Sshd and ssh config
+  template: src=sshd_config.j2 dest=/etc/ssh/sshd_config
+  tags: sshd_config
+
+- name: Restart sshd
+  service: name=sshd state=restarted
+  tags: sshd_config
